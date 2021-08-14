@@ -32,43 +32,11 @@
     </LazyHydrate>
 
     <LazyHydrate when-visible>
-      <div class="similar-products">
-        <SfHeading title="Match with it" :level="3"/>
-        <nuxt-link :to="localePath('/c/women')" class="smartphone-only">See all</nuxt-link>
-      </div>
-    </LazyHydrate>
-
-    <LazyHydrate when-visible>
-        <SfCarousel class="carousel" :settings="{ peek: 16, breakpoints: { 1023: { peek: 0, perView: 2 } } }">
-          <template #prev="{go}">
-            <SfArrow
-              aria-label="prev"
-              class="sf-arrow--left sf-arrow--long"
-              @click="go('prev')"
-            />
-          </template>
-          <template #next="{go}">
-            <SfArrow
-              aria-label="next"
-              class="sf-arrow--right sf-arrow--long"
-              @click="go('next')"
-            />
-          </template>
-          <SfCarouselItem class="carousel__item" v-for="(product, i) in products" :key="i">
-            <SfProductCard
-              :title="product.title"
-              :image="product.image"
-              :regular-price="product.price.regular"
-              :max-rating="product.rating.max"
-              :score-rating="product.rating.score"
-              :show-add-to-cart-button="true"
-              :is-on-wishlist="product.isInWishlist"
-              link="/"
-              class="carousel__item__product"
-              @click:wishlist="toggleWishlist(i)"
-            />
-          </SfCarouselItem>
-        </SfCarousel>
+      <RelatedProducts
+        :products="products"
+        :loading="productsLoading"
+        title="Match it with"
+      />
     </LazyHydrate>
 
     <LazyHydrate when-visible>
@@ -79,10 +47,6 @@
         image="/homepage/newsletter.webp"
         class="call-to-action"
       />
-    </LazyHydrate>
-
-    <LazyHydrate when-visible>
-      <InstagramFeed />
     </LazyHydrate>
 
     <LazyHydrate when-visible>
@@ -104,18 +68,17 @@ import {
   SfArrow,
   SfButton
 } from '@storefront-ui/vue';
-import InstagramFeed from '~/components/InstagramFeed.vue';
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import LazyHydrate from 'vue-lazy-hydration';
+import { onSSR } from '@vue-storefront/core';
 
 export default {
   name: 'Home',
   setup() {
-    // todo
+
     return {};
   },
   components: {
-    InstagramFeed,
     SfHero,
     SfBanner,
     SfCallToAction,
