@@ -110,6 +110,10 @@ import LazyHydrate from 'vue-lazy-hydration';
 
 export default {
   name: 'Home',
+  setup() {
+    // todo
+    return {};
+  },
   components: {
     InstagramFeed,
     SfHero,
