@@ -31,13 +31,13 @@
       </SfBannerGrid>
     </LazyHydrate>
 
-    <LazyHydrate when-visible>
-      <RelatedProducts
-        :products="products"
-        :loading="productsLoading"
-        title="Match it with"
-      />
-    </LazyHydrate>
+<!--    <LazyHydrate when-visible>-->
+<!--      <RelatedProducts-->
+<!--        :products="products"-->
+<!--        :loading="bootLoading"-->
+<!--        title="Match it with"-->
+<!--      />-->
+<!--    </LazyHydrate>-->
 
     <LazyHydrate when-visible>
       <SfCallToAction
@@ -72,11 +72,28 @@ import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import LazyHydrate from 'vue-lazy-hydration';
 import { onSSR } from '@vue-storefront/core';
 
+import {
+  useBootstrap
+} from '@vue-storefront/prestashop';
+
 export default {
   name: 'Home',
   setup() {
+    const {
+      result: bootResult,
+      boot: boot,
+      loading: bootLoading
+    } = useBootstrap();
 
-    return {};
+    onSSR(async () => {
+      await boot();
+    });
+
+    // todo
+
+    return {
+      bootLoading
+    };
   },
   components: {
     SfHero,

@@ -2,7 +2,7 @@ import { computed } from '@vue/composition-api';
 import { sharedRef, useVSFContext, Logger } from '@vue-storefront/core';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const bootstrap = () => {
+export const useBootstrap = () => {
   const context = useVSFContext();
 
   const result = sharedRef(null, 'bootstrap');
