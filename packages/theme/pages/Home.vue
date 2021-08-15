@@ -13,19 +13,12 @@
     </LazyHydrate>
 
     <LazyHydrate when-visible>
-      <SfBannerGrid :banner-grid="1" class="banner-grid">
-        <template v-for="item in banners" v-slot:[item.slot]>
+        <template>
           <SfBanner
-            :key="item.slot"
-            :title="item.title"
-            :subtitle="item.subtitle"
-            :description="item.description"
-            :button-text="item.buttonText"
-            :image="item.image"
-            :class="item.class"
+            :image="banner.image_url"
+            class = 'sf-banner--slim banner-central'
           />
         </template>
-      </SfBannerGrid>
     </LazyHydrate>
 
 <!--    <LazyHydrate when-visible>-->
@@ -78,6 +71,7 @@ export default {
   setup() {
     const {
       slides: slides,
+      banner: banner,
       result: bootResult,
       boot: boot,
       loading: bootLoading
@@ -85,12 +79,14 @@ export default {
 
     onSSR(async () => {
       await boot();
+      console.log(banner.value);
     });
 
     // todo
 
     return {
       slides,
+      banner,
       bootLoading
     };
   },
@@ -111,59 +107,6 @@ export default {
   },
   data() {
     return {
-      heroes: [
-        {
-          title: 'Colorful summer dresses are already in store',
-          subtitle: 'SUMMER COLLECTION 2019',
-          buttonText: 'Learn more',
-          background: '#eceff1',
-          image: '/homepage/bannerH.webp',
-          link: '/c/women/women-clothing-shirts'
-        }
-      ],
-      banners: [
-        {
-          slot: 'banner-A',
-          subtitle: 'Dresses',
-          title: 'Cocktail & Party',
-          description:
-            'Find stunning women\'s cocktail dresses and party dresses. Stand out in lace and metallic cocktail dresses from all your favorite brands.',
-          buttonText: 'Shop now',
-          image: {
-            mobile: '/homepage/bannerB.webp',
-            desktop: '/homepage/bannerF.webp'
-          },
-          class: 'sf-banner--slim desktop-only',
-          link: '/c/women/women-clothing-skirts'
-        },
-        {
-          slot: 'banner-B',
-          subtitle: 'Dresses',
-          title: 'Linen Dresses',
-          description:
-            'Find stunning women\'s cocktail dresses and party dresses. Stand out in lace and metallic cocktail dresses from all your favorite brands.',
-          buttonText: 'Shop now',
-          image: '/homepage/bannerE.webp',
-          class: 'sf-banner--slim banner-central desktop-only',
-          link: '/c/women/women-clothing-dresses'
-        },
-        {
-          slot: 'banner-C',
-          subtitle: 'T-Shirts',
-          title: 'The Office Life',
-          image: '/homepage/bannerC.webp',
-          class: 'sf-banner--slim banner__tshirt',
-          link: '/c/women/women-clothing-shirts'
-        },
-        {
-          slot: 'banner-D',
-          subtitle: 'Summer Sandals',
-          title: 'Eco Sandals',
-          image: '/homepage/bannerG.webp',
-          class: 'sf-banner--slim',
-          link: '/c/women/women-shoes-sandals'
-        }
-      ],
       products: [
         {
           title: 'Cream Beach Bag',
@@ -344,6 +287,12 @@ export default {
      -webkit-transform-origin: center;
      transform-origin: center;
   }
+}
+
+.sf-banner{
+  min-height: 4rem !important;
+  background-size: contain;
+  margin-bottom: 20px;
 }
 
 </style>

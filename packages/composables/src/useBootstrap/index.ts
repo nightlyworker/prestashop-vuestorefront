@@ -33,6 +33,7 @@ export const useBootstrap = () => {
   return {
     boot,
     slides: computed(() => result.value.psdata.slides),
+    banner: computed(() => result.value.psdata.banner),
     result: computed(() => result.value),
     loading: computed(() => loading.value),
     error: computed(() => error.value)
