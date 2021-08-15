@@ -1,6 +1,7 @@
 import { computed } from '@vue/composition-api';
 import { sharedRef, useVSFContext, Logger } from '@vue-storefront/core';
 
+// todo: create factories to implement composables
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const useBootstrap = () => {
   const context = useVSFContext();
@@ -28,8 +29,10 @@ export const useBootstrap = () => {
     }
   };
 
+  // todo: in factories it should return array of typed objects - not raw plain response
   return {
     boot,
+    slides: computed(() => result.value.psdata.slides),
     result: computed(() => result.value),
     loading: computed(() => loading.value),
     error: computed(() => error.value)

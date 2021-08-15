@@ -3,14 +3,11 @@
     <LazyHydrate when-idle>
       <SfHero class="hero">
         <SfHeroItem
-          v-for="(hero, i) in heroes"
+          v-for="(hero, i) in slides"
           :key="i"
           :title="hero.title"
-          :subtitle="hero.subtitle"
-          :button-text="hero.buttonText"
           :background="hero.background"
-          :image="hero.image"
-          :class="hero.className"
+          :image="hero.image_url"
         />
       </SfHero>
     </LazyHydrate>
@@ -80,6 +77,7 @@ export default {
   name: 'Home',
   setup() {
     const {
+      slides: slides,
       result: bootResult,
       boot: boot,
       loading: bootLoading
@@ -92,6 +90,7 @@ export default {
     // todo
 
     return {
+      slides,
       bootLoading
     };
   },
@@ -120,24 +119,6 @@ export default {
           background: '#eceff1',
           image: '/homepage/bannerH.webp',
           link: '/c/women/women-clothing-shirts'
-        },
-        {
-          title: 'Colorful summer dresses are already in store',
-          subtitle: 'SUMMER COLLECTION 2019',
-          buttonText: 'Learn more',
-          background: '#efebe9',
-          image: '/homepage/bannerA.webp',
-          link: '/c/women/women-shoes-sandals',
-          className:
-            'sf-hero-item--position-bg-top-left sf-hero-item--align-right'
-        },
-        {
-          title: 'Colorful summer dresses are already in store',
-          subtitle: 'SUMMER COLLECTION 2019',
-          buttonText: 'Learn more',
-          background: '#fce4ec',
-          image: '/homepage/bannerB.webp',
-          link: '/c/women/women-clothing-dresses'
         }
       ],
       banners: [
