@@ -24,6 +24,17 @@ export type OrderItem = TODO;
 
 export type Product = TODO;
 
+export type PsProduct = {
+  id: string;
+  name: string;
+  slug: string;
+  regularPrice: number;
+  discountPrice: number;
+  coverImageSmall: string;
+  coverImageMedium: string;
+  coverImageLarge: string;
+}
+
 export type ProductFilter = TODO;
 
 export type Review = TODO;

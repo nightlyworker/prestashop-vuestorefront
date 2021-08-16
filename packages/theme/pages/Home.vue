@@ -21,13 +21,13 @@
         </template>
     </LazyHydrate>
 
-<!--    <LazyHydrate when-visible>-->
-<!--      <RelatedProducts-->
-<!--        :products="products"-->
-<!--        :loading="bootLoading"-->
-<!--        title="Match it with"-->
-<!--      />-->
-<!--    </LazyHydrate>-->
+    <LazyHydrate when-visible>
+      <RelatedProducts
+        :products="products"
+        :loading="bootLoading"
+        title="Popular Products"
+      />
+    </LazyHydrate>
 
     <LazyHydrate when-visible>
       <SfCallToAction
@@ -59,20 +59,25 @@ import {
   SfButton
 } from '@storefront-ui/vue';
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
+import RelatedProducts from '~/components/RelatedProducts.vue';
 import LazyHydrate from 'vue-lazy-hydration';
 import { onSSR } from '@vue-storefront/core';
+import {
+  computed
+} from '@vue/composition-api';
 
 import {
-  useBootstrap
+  useBootstrap,
+  productGetters
 } from '@vue-storefront/prestashop';
 
 export default {
   name: 'Home',
   setup() {
     const {
+      featureProducts: featureProducts,
       slides: slides,
       banner: banner,
-      result: bootResult,
       boot: boot,
       loading: bootLoading
     } = useBootstrap();
@@ -82,9 +87,10 @@ export default {
       console.log(banner.value);
     });
 
-    // todo
-
     return {
+      products: computed(() =>
+        productGetters.getFeaturedProductsFiltered(featureProducts.value, { master: true })
+      ),
       slides,
       banner,
       bootLoading
@@ -103,7 +109,8 @@ export default {
     SfArrow,
     SfButton,
     MobileStoreBanner,
-    LazyHydrate
+    LazyHydrate,
+    RelatedProducts
   },
   data() {
     return {
