@@ -16,18 +16,18 @@
         <template>
           <SfBanner
             :image="banner.image_url"
-            class = 'sf-banner--slim banner-central'
+            class = 'sf-banner--slim banner-central no-desktop'
           />
         </template>
     </LazyHydrate>
 
-<!--    <LazyHydrate when-visible>-->
-<!--      <RelatedProducts-->
-<!--        :products="products"-->
-<!--        :loading="bootLoading"-->
-<!--        title="Match it with"-->
-<!--      />-->
-<!--    </LazyHydrate>-->
+    <LazyHydrate when-visible>
+      <RelatedProducts
+        :products="products"
+        :loading="bootLoading"
+        title="Popular Products"
+      />
+    </LazyHydrate>
 
     <LazyHydrate when-visible>
       <SfCallToAction
@@ -59,32 +59,37 @@ import {
   SfButton
 } from '@storefront-ui/vue';
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
+import RelatedProducts from '~/components/RelatedProducts.vue';
 import LazyHydrate from 'vue-lazy-hydration';
 import { onSSR } from '@vue-storefront/core';
+import {
+  computed
+} from '@vue/composition-api';
 
 import {
-  useBootstrap
+  useBootstrap,
+  productGetters
 } from '@vue-storefront/prestashop';
 
 export default {
   name: 'Home',
   setup() {
     const {
+      featureProducts: featureProducts,
       slides: slides,
       banner: banner,
-      result: bootResult,
       boot: boot,
       loading: bootLoading
     } = useBootstrap();
 
     onSSR(async () => {
       await boot();
-      console.log(banner.value);
     });
 
-    // todo
-
     return {
+      products: computed(() =>
+        productGetters.getFeaturedProductsFiltered(featureProducts.value)
+      ),
       slides,
       banner,
       bootLoading
@@ -103,68 +108,11 @@ export default {
     SfArrow,
     SfButton,
     MobileStoreBanner,
-    LazyHydrate
+    LazyHydrate,
+    RelatedProducts
   },
   data() {
     return {
-      products: [
-        {
-          title: 'Cream Beach Bag',
-          image: '/homepage/productA.webp',
-          price: { regular: '50.00 $' },
-          rating: { max: 5, score: 4 },
-          isInWishlist: true
-        },
-        {
-          title: 'Cream Beach Bag',
-          image: '/homepage/productB.webp',
-          price: { regular: '50.00 $' },
-          rating: { max: 5, score: 4 },
-          isInWishlist: false
-        },
-        {
-          title: 'Cream Beach Bag',
-          image: '/homepage/productC.webp',
-          price: { regular: '50.00 $' },
-          rating: { max: 5, score: 4 },
-          isInWishlist: false
-        },
-        {
-          title: 'Cream Beach Bag',
-          image: '/homepage/productA.webp',
-          price: { regular: '50.00 $' },
-          rating: { max: 5, score: 4 },
-          isInWishlist: false
-        },
-        {
-          title: 'Cream Beach Bag',
-          image: '/homepage/productB.webp',
-          price: { regular: '50.00 $' },
-          rating: { max: 5, score: 4 },
-          isInWishlist: false
-        },
-        {
-          title: 'Cream Beach Bag',
-          image: '/homepage/productC.webp',
-          price: { regular: '50.00 $' },
-          rating: { max: 5, score: 4 },
-          isInWishlist: false
-        },
-        {
-          title: 'Cream Beach Bag',
-          image: '/homepage/productA.webp',
-          price: { regular: '50.00 $' },
-          rating: { max: 5, score: 4 },
-          isInWishlist: false
-        },
-        {
-          title: 'Cream Beach Bag',
-          image: '/homepage/productB.webp',
-          price: { regular: '50.00 $' },
-          rating: { max: 5, score: 4 },
-          isInWishlist: false
-        }
-      ]
     };
   },
   methods: {
@@ -294,6 +242,12 @@ export default {
   background-size: contain;
   margin-bottom: 20px;
   background-position: center;
+}
+
+.no-desktop{
+  @include for-desktop {
+    display: none;
+  }
 }
 
 </style>
