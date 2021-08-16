@@ -19,6 +19,7 @@ function getSlug(product: PsProduct): string {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getPrice(product: PsProduct): AgnosticPrice {
+  console.log(product.regularPrice);
   return {
     regular: product.regularPrice,
     special: product.discountPrice
@@ -47,8 +48,8 @@ function getFiltered(products: PsProduct[], filters: ProductFilter): PsProduct[]
   ];
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function getFeaturedProductsFiltered(products: PsProduct[], filters: ProductFilter): PsProduct[] {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars,@typescript-eslint/explicit-module-boundary-types
+function getFeaturedProductsFiltered(products, filters: ProductFilter): PsProduct[] {
   if (!products) {
     return [];
   }

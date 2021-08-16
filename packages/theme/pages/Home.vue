@@ -16,7 +16,7 @@
         <template>
           <SfBanner
             :image="banner.image_url"
-            class = 'sf-banner--slim banner-central'
+            class = 'sf-banner--slim banner-central no-desktop'
           />
         </template>
     </LazyHydrate>
@@ -88,7 +88,7 @@ export default {
 
     return {
       products: computed(() =>
-        productGetters.getFeaturedProductsFiltered(featureProducts.value, { master: true })
+        productGetters.getFeaturedProductsFiltered(featureProducts.value)
       ),
       slides,
       banner,
@@ -113,64 +113,6 @@ export default {
   },
   data() {
     return {
-      products: [
-        {
-          title: 'Cream Beach Bag',
-          image: '/homepage/productA.webp',
-          price: { regular: '50.00 $' },
-          rating: { max: 5, score: 4 },
-          isInWishlist: true
-        },
-        {
-          title: 'Cream Beach Bag',
-          image: '/homepage/productB.webp',
-          price: { regular: '50.00 $' },
-          rating: { max: 5, score: 4 },
-          isInWishlist: false
-        },
-        {
-          title: 'Cream Beach Bag',
-          image: '/homepage/productC.webp',
-          price: { regular: '50.00 $' },
-          rating: { max: 5, score: 4 },
-          isInWishlist: false
-        },
-        {
-          title: 'Cream Beach Bag',
-          image: '/homepage/productA.webp',
-          price: { regular: '50.00 $' },
-          rating: { max: 5, score: 4 },
-          isInWishlist: false
-        },
-        {
-          title: 'Cream Beach Bag',
-          image: '/homepage/productB.webp',
-          price: { regular: '50.00 $' },
-          rating: { max: 5, score: 4 },
-          isInWishlist: false
-        },
-        {
-          title: 'Cream Beach Bag',
-          image: '/homepage/productC.webp',
-          price: { regular: '50.00 $' },
-          rating: { max: 5, score: 4 },
-          isInWishlist: false
-        },
-        {
-          title: 'Cream Beach Bag',
-          image: '/homepage/productA.webp',
-          price: { regular: '50.00 $' },
-          rating: { max: 5, score: 4 },
-          isInWishlist: false
-        },
-        {
-          title: 'Cream Beach Bag',
-          image: '/homepage/productB.webp',
-          price: { regular: '50.00 $' },
-          rating: { max: 5, score: 4 },
-          isInWishlist: false
-        }
-      ]
     };
   },
   methods: {
@@ -300,6 +242,12 @@ export default {
   background-size: contain;
   margin-bottom: 20px;
   background-position: center;
+}
+
+.no-desktop{
+  @include for-desktop {
+    display: none;
+  }
 }
 
 </style>
