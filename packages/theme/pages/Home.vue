@@ -293,6 +293,7 @@ export default {
   min-height: 4rem !important;
   background-size: contain;
   margin-bottom: 20px;
+  background-position: center;
 }
 
 </style>
