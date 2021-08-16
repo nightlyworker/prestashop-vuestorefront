@@ -84,7 +84,6 @@ export default {
 
     onSSR(async () => {
       await boot();
-      console.log(banner.value);
     });
 
     return {
