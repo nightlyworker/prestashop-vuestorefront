@@ -90,17 +90,50 @@ export default {
   ],
 
   i18n: {
-    locales: ['en'],
+    currency: 'USD',
+    country: 'US',
+    countries: [
+      { name: 'US', label: 'United States' },
+      { name: 'AT', label: 'Austria' },
+      { name: 'DE', label: 'Germany' },
+      { name: 'NL', label: 'Netherlands' }
+    ],
+    currencies: [
+      { name: 'EUR', label: 'Euro' },
+      { name: 'USD', label: 'Dollar' }
+    ],
+    locales: [
+      {
+        code: 'en',
+        label: 'English',
+        file: 'en.js',
+        iso: 'en'
+      },
+      {
+        code: 'de',
+        label: 'German',
+        file: 'de.js',
+        iso: 'de'
+      }
+    ],
     defaultLocale: 'en',
     strategy: 'no_prefix',
     vueI18n: {
       fallbackLocale: 'en',
-      messages: {
+      numberFormats: {
         en: {
-          welcome: 'Welcome 1'
+          currency: {
+            style: 'currency',
+            currency: 'USD',
+            currencyDisplay: 'symbol'
+          }
         },
         de: {
-          welcome: 'Welcome 2'
+          currency: {
+            style: 'currency',
+            currency: 'EUR',
+            currencyDisplay: 'symbol'
+          }
         }
       }
     }
