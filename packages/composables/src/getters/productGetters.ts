@@ -28,7 +28,7 @@ function getPrice(product: PsProduct): AgnosticPrice {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getGallery(product: PsProduct): AgnosticMediaGalleryItem[] {
-  return product.images;
+  return product?.images || [];
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
