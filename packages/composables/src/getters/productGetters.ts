@@ -5,7 +5,7 @@ import {
   ProductGetters
 } from '@vue-storefront/core';
 import type { PsProduct, ProductFilter } from '@vue-storefront/prestashop-api';
-import { populateFeaturedProducts } from '../helpers';
+import { populateFeaturedProducts, populateProducts } from '../helpers';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getName(product: PsProduct): string {
@@ -43,8 +43,11 @@ function getCoverImage(product: PsProduct): string {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getFiltered(products: PsProduct[], filters: ProductFilter): PsProduct[] {
-  return [
-  ];
+  if (!products) {
+    return [];
+  }
+  products = Array.isArray(products) ? products : [products];
+  return populateProducts(products);
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,@typescript-eslint/explicit-module-boundary-types

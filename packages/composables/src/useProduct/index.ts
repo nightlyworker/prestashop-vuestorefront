@@ -11,9 +11,9 @@ import type {
 const params: UseProductFactoryParams<Product, SearchParams> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   productsSearch: async (context: Context, params) => {
-    const data = await context.$sloth.api.getProduct(params);
+    const data = await context.$prestashop.api.getProduct(params);
 
-    return data;
+    return data.psdata;
   }
 };
 
