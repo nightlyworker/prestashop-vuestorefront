@@ -69,7 +69,7 @@
             :disabled="loading"
             :canAddToCart="stock > 0"
             class="product__add-to-cart"
-            @click="addItem({ product, quantity: parseInt(qty) })"
+            @click="showcaseMessage()"
           />
         </div>
 
@@ -197,7 +197,13 @@ export default {
       });
     };
 
+    const showcaseMessage = () =>{
+      // eslint-disable-next-line no-alert
+      alert('Cart functionality will be added');
+    };
+
     return {
+      showcaseMessage,
       updateFilter,
       configuration,
       product,
