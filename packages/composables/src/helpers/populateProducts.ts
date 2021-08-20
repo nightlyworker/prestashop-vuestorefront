@@ -1,4 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+import { AgnosticMediaGalleryItem } from '@vue-storefront/core';
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const populateProducts = (psProducts: Array<any>) => {
   const populateProducts = psProducts.map((product) => ({
     id: product.id_product,
@@ -9,7 +12,14 @@ const populateProducts = (psProducts: Array<any>) => {
     discountPrice: product.float_price, // todo
     coverImageSmall: product.cover_image,
     coverImageMedium: product.cover_image,
-    coverImageLarge: product.cover_image
+    coverImageLarge: product.cover_image,
+    images: product.images.map(
+      (image)=>(<AgnosticMediaGalleryItem>{
+        small: image.src,
+        normal: image.src,
+        big: image.src
+      }
+      ))
   }));
 
   return populateProducts;
