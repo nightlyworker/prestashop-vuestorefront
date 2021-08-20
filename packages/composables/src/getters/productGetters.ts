@@ -61,8 +61,8 @@ function getAttributes(products: PsProduct[] | PsProduct, filterByAttributeName?
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function getDescription(product: PsProduct): string {
-  return '';
+function getDescription(product: PsProduct): any {
+  return product?.description || '';
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

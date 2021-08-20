@@ -9,7 +9,8 @@ const populateFeaturedProducts = (psProducts: Array<any>) => {
     coverImageSmall: product.cover.small.url,
     coverImageMedium: product.cover.medium.url,
     coverImageLarge: product.cover.large.url,
-    images: []
+    images: [],
+    description: null
   }));
   return populateFeaturedProducts;
 };

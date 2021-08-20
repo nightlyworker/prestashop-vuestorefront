@@ -19,7 +19,8 @@ const populateProducts = (psProducts: Array<any>) => {
         normal: image.src,
         big: image.src
       }
-      ))
+      )),
+    description: product.description
   }));
 
   return populateProducts;
