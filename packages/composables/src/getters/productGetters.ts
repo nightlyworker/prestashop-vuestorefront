@@ -9,19 +9,20 @@ import { populateFeaturedProducts, populateProducts } from '../helpers';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getName(product: PsProduct): string {
-  return product.name;
+  return product?.name || '';
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getSlug(product: PsProduct): string {
-  return product.slug;
+  if (product)
+    return product.slug;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getPrice(product: PsProduct): AgnosticPrice {
   return {
-    regular: product.regularPrice,
-    special: product.discountPrice
+    regular: product?.regularPrice || 0,
+    special: product?.discountPrice || 0
   };
 }
 
@@ -38,7 +39,8 @@ function getGallery(product: PsProduct): AgnosticMediaGalleryItem[] {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getCoverImage(product: PsProduct): string {
-  return product.coverImageMedium;
+  if (product)
+    return product.coverImageMedium;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

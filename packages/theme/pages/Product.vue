@@ -28,18 +28,6 @@
             :regular="$n(productGetters.getPrice(product).regular, 'currency')"
             :special="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
           />
-          <div>
-            <div class="product__rating">
-              <SfRating
-                :score="averageRating"
-                :max="5"
-              />
-              <a v-if="!!totalReviews" href="#" class="product__count">
-                ({{ totalReviews }})
-              </a>
-            </div>
-            <SfButton class="sf-button--text">{{ $t('Read all reviews') }}</SfButton>
-          </div>
         </div>
         <div>
           <p class="product__description desktop-only">
@@ -105,21 +93,6 @@
                 </template>
               </SfProperty>
             </SfTab>
-            <SfTab title="Read reviews">
-              <SfReview
-                v-for="review in reviews"
-                :key="reviewGetters.getReviewId(review)"
-                :author="reviewGetters.getReviewAuthor(review)"
-                :date="reviewGetters.getReviewDate(review)"
-                :message="reviewGetters.getReviewMessage(review)"
-                :max-rating="5"
-                :rating="reviewGetters.getReviewRating(review)"
-                :char-limit="250"
-                read-more-text="Read more"
-                hide-full-text="Read less"
-                class="product__review"
-              />
-            </SfTab>
             <SfTab
               title="Additional Information"
               class="product__additional-info"
@@ -142,17 +115,13 @@
       </div>
     </div>
 
-    <LazyHydrate when-visible>
-      <RelatedProducts
-        :products="relatedProducts"
-        :loading="relatedLoading"
-        title="Match it with"
-      />
-    </LazyHydrate>
-
-    <LazyHydrate when-visible>
-      <InstagramFeed />
-    </LazyHydrate>
+<!--    <LazyHydrate when-visible>-->
+<!--      <RelatedProducts-->
+<!--        :products="relatedProducts"-->
+<!--        :loading="relatedLoading"-->
+<!--        title="Match it with"-->
+<!--      />-->
+<!--    </LazyHydrate>-->
 
     <LazyHydrate when-visible>
       <MobileStoreBanner />
@@ -184,7 +153,7 @@ import {
 import InstagramFeed from '~/components/InstagramFeed.vue';
 import RelatedProducts from '~/components/RelatedProducts.vue';
 import { ref, computed } from '@vue/composition-api';
-import { useProduct, useCart, productGetters, useReview, reviewGetters } from '@vue-storefront/prestashop';
+import { useProduct, useCart, productGetters, reviewGetters } from '@vue-storefront/prestashop';
 import { onSSR } from '@vue-storefront/core';
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import LazyHydrate from 'vue-lazy-hydration';
@@ -196,15 +165,13 @@ export default {
     const qty = ref(1);
     const { id } = context.root.$route.params;
     const { products, search } = useProduct('products');
-    const { products: relatedProducts, search: searchRelatedProducts, loading: relatedLoading } = useProduct('relatedProducts');
+    // const { products: relatedProducts, search: searchRelatedProducts, loading: relatedLoading } = useProduct('relatedProducts');
     const { addItem, loading } = useCart();
-    const { reviews: productReviews, search: searchReviews } = useReview('productReviews');
 
     const product = computed(() => productGetters.getFiltered(products.value, { master: true, attributes: context.root.$route.query })[0]);
     const options = computed(() => productGetters.getAttributes(products.value, ['color', 'size']));
     const configuration = computed(() => productGetters.getAttributes(product.value, ['color', 'size']));
-    const categories = computed(() => productGetters.getCategoryIds(product.value));
-    const reviews = computed(() => reviewGetters.getItems(productReviews.value));
+    // const categories = computed(() => productGetters.getCategoryIds(product.value));
 
     // TODO: Breadcrumbs are temporary disabled because productGetters return undefined. We have a mocks in data
     // const breadcrumbs = computed(() => productGetters.getBreadcrumbs ? productGetters.getBreadcrumbs(product.value) : props.fallbackBreadcrumbs);
@@ -212,13 +179,12 @@ export default {
       mobile: { url: img.small },
       desktop: { url: img.normal },
       big: { url: img.big },
-      alt: product.value._name || product.value.name
+      alt: product.value.name ? product.value.name : 'product alt'
     })));
 
     onSSR(async () => {
       await search({ id });
-      await searchRelatedProducts({ catId: [categories.value[0]], limit: 8 });
-      await searchReviews({ productId: id });
+      // await searchRelatedProducts({ catId: [categories.value[0]], limit: 8 });
     });
 
     const updateFilter = (filter) => {
@@ -235,12 +201,7 @@ export default {
       updateFilter,
       configuration,
       product,
-      reviews,
       reviewGetters,
-      averageRating: computed(() => productGetters.getAverageRating(product.value)),
-      totalReviews: computed(() => productGetters.getTotalReviews(product.value)),
-      relatedProducts: computed(() => productGetters.getFiltered(relatedProducts.value, { master: true })),
-      relatedLoading,
       options,
       qty,
       addItem,
