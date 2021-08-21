@@ -5,46 +5,45 @@ import {
   ProductGetters
 } from '@vue-storefront/core';
 import type { PsProduct, ProductFilter } from '@vue-storefront/prestashop-api';
-import { populateFeaturedProducts } from '../helpers';
+import { populateFeaturedProducts, populateProducts } from '../helpers';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getName(product: PsProduct): string {
-  return product.name;
+  return product?.name || '';
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getSlug(product: PsProduct): string {
-  return product.slug;
+  if (product)
+    return product.slug;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getPrice(product: PsProduct): AgnosticPrice {
   return {
-    regular: product.regularPrice,
-    special: product.discountPrice
+    regular: product?.regularPrice || 0,
+    special: product?.discountPrice || 0
   };
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getGallery(product: PsProduct): AgnosticMediaGalleryItem[] {
-  return [
-    {
-      small: 'https://s3-eu-west-1.amazonaws.com/commercetools-maximilian/products/081223_1_large.jpg',
-      normal: 'https://s3-eu-west-1.amazonaws.com/commercetools-maximilian/products/081223_1_large.jpg',
-      big: 'https://s3-eu-west-1.amazonaws.com/commercetools-maximilian/products/081223_1_large.jpg'
-    }
-  ];
+  return product?.images || [];
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getCoverImage(product: PsProduct): string {
-  return product.coverImageMedium;
+  if (product)
+    return product.coverImageMedium;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getFiltered(products: PsProduct[], filters: ProductFilter): PsProduct[] {
-  return [
-  ];
+  if (!products) {
+    return [];
+  }
+  products = Array.isArray(products) ? products : [products];
+  return populateProducts(products);
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,@typescript-eslint/explicit-module-boundary-types
@@ -62,8 +61,8 @@ function getAttributes(products: PsProduct[] | PsProduct, filterByAttributeName?
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function getDescription(product: PsProduct): string {
-  return '';
+function getDescription(product: PsProduct): any {
+  return product?.description || '';
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
