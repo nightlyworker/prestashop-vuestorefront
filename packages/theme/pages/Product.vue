@@ -1,5 +1,12 @@
 <template>
-  <div id="product">
+  <SfLoader
+    v-if="productLoading"
+    class="pdc-pdp-loader"
+    :loading="productLoading"
+  >
+    <div />
+  </SfLoader>
+  <div id="product" v-else>
     <SfBreadcrumbs
       class="breadcrumbs desktop-only"
       :breadcrumbs="breadcrumbs"
@@ -127,6 +134,7 @@
 </template>
 <script>
 import {
+  SfLoader,
   SfProperty,
   SfHeading,
   SfPrice,
@@ -160,7 +168,7 @@ export default {
   setup(props, context) {
     const qty = ref(1);
     const { id } = context.root.$route.params;
-    const { products, search } = useProduct('products');
+    const { products, search, loading: productLoading } = useProduct('products');
     // const { products: relatedProducts, search: searchRelatedProducts, loading: relatedLoading } = useProduct('relatedProducts');
     const { addItem, loading } = useCart();
 
@@ -209,10 +217,12 @@ export default {
       addItem,
       loading,
       productGetters,
-      productGallery
+      productGallery,
+      productLoading
     };
   },
   components: {
+    SfLoader,
     SfAlert,
     SfColor,
     SfProperty,
