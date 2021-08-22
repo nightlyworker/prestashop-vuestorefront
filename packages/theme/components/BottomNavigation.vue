@@ -35,7 +35,7 @@ export default {
     SfCircleIcon
   },
   setup(props, { root }) {
-    const { toggleCartSidebar, toggleWishlistSidebar, toggleLoginModal } = useUiState();
+    const { toggleMenu, toggleCartSidebar, toggleWishlistSidebar, toggleLoginModal } = useUiState();
     const { isAuthenticated } = useUser();
 
     const handleAccountClick = async () => {
@@ -46,6 +46,7 @@ export default {
     };
 
     return {
+      toggleMenu,
       toggleWishlistSidebar,
       toggleCartSidebar,
       handleAccountClick
