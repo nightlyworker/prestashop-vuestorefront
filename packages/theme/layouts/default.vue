@@ -13,6 +13,7 @@
       <LazyHydrate when-visible>
         <BottomNavigation />
       </LazyHydrate>
+      <MenuSidebar />
       <CartSidebar />
       <WishlistSidebar />
       <LoginModal />
@@ -29,6 +30,7 @@ import AppHeader from '~/components/AppHeader.vue';
 import BottomNavigation from '~/components/BottomNavigation.vue';
 import AppFooter from '~/components/AppFooter.vue';
 import TopBar from '~/components/TopBar.vue';
+import MenuSidebar from '~/components/MenuSidebar.vue';
 import CartSidebar from '~/components/CartSidebar.vue';
 import WishlistSidebar from '~/components/WishlistSidebar.vue';
 import LoginModal from '~/components/LoginModal.vue';
@@ -44,6 +46,7 @@ export default {
     AppHeader,
     BottomNavigation,
     AppFooter,
+    MenuSidebar,
     CartSidebar,
     WishlistSidebar,
     LoginModal,

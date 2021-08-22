@@ -5,7 +5,7 @@ import VueCompositionAPI, { reactive, computed } from '@vue/composition-api';
 Vue.use(VueCompositionAPI);
 
 const state = reactive({
-  isMenuOpen: false,
+  isMenuSidebarOpen: false,
   isCartSidebarOpen: false,
   isWishlistSidebarOpen: false,
   isLoginModalOpen: false,
@@ -14,9 +14,9 @@ const state = reactive({
 });
 
 const useUiState = () => {
-  const isMenuOpen = computed(() => state.isMenuOpen);
-  const toggleMenu = () => {
-    state.isMenuOpen = !state.isMenuOpen;
+  const isMenuSidebarOpen = computed(() => state.isMenuSidebarOpen);
+  const toggleMenuSidebar = () => {
+    state.isMenuSidebarOpen = !state.isMenuSidebarOpen;
   };
 
   const isCartSidebarOpen = computed(() => state.isCartSidebarOpen);
@@ -48,13 +48,13 @@ const useUiState = () => {
   };
 
   return {
-    isMenuOpen,
+    isMenuSidebarOpen,
     isCartSidebarOpen,
     isWishlistSidebarOpen,
     isLoginModalOpen,
     isCategoryGridView,
     isFilterSidebarOpen,
-    toggleMenu,
+    toggleMenuSidebar,
     toggleCartSidebar,
     toggleWishlistSidebar,
     toggleLoginModal,
