@@ -5,7 +5,7 @@
       :visible="isMenuSidebarOpen"
       title="My Cart"
       class="sf-sidebar--right"
-      @close="toggleCartSidebar"
+      @close="toggleMenuSidebar"
     >
       <template #content-top>
         <SfProperty
@@ -65,30 +65,11 @@
       </transition>
       <template #content-bottom>
         <transition name="sf-fade">
-          <div v-if="totalItems">
-            <SfProperty
-              name="Total price"
-              class="sf-property--full-width sf-property--large my-cart__total-price"
-            >
-              <template #value>
-                <SfPrice :regular="$n(totals.subtotal, 'currency')" />
-              </template>
-            </SfProperty>
-            <nuxt-link to="/checkout/shipping">
-              <SfButton
-                v-e2e="'go-to-checkout-btn'"
-                class="sf-button--full-width color-secondary"
-                @click="toggleCartSidebar"
-              >
-                {{ $t('Go to checkout') }}
-              </SfButton>
-            </nuxt-link>
-          </div>
-          <div v-else>
+          <div>
             <SfButton
               class="sf-button--full-width color-primary"
-              @click="toggleCartSidebar"
-            >{{ $t('Go back shopping') }}</SfButton
+              @click="toggleMenuSidebar"
+            >{{ $t('Close') }}</SfButton
             >
           </div>
         </transition>
@@ -125,7 +106,7 @@ export default {
     SfImage
   },
   setup() {
-    const { isMenuSidebarOpen, toggleCartSidebar } = useUiState();
+    const { toggleMenuSidebar, isMenuSidebarOpen, toggleCartSidebar } = useUiState();
     const { cart, removeItem, updateItemQty, load: loadCart } = useCart();
     const { isAuthenticated } = useUser();
     const products = computed(() => cartGetters.getItems(cart.value));
@@ -142,6 +123,7 @@ export default {
       removeItem,
       updateItemQty,
       isMenuSidebarOpen,
+      toggleMenuSidebar,
       toggleCartSidebar,
       totals,
       totalItems,
