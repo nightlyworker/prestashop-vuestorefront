@@ -3,7 +3,7 @@
     <SfSidebar
       v-e2e="'sidebar-cart'"
       :visible="isMenuSidebarOpen"
-      title="My Cart"
+      title="Menu"
       class="sf-sidebar--right"
       @close="toggleMenuSidebar"
     >
