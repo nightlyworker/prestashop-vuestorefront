@@ -13,9 +13,6 @@
         <SfHeaderNavigationItem class="nav-item" v-e2e="'app-header-url_women'" label="WOMEN" :link="localePath('/c/women')"/>
         <SfHeaderNavigationItem class="nav-item"  v-e2e="'app-header-url_men'" label="MEN" :link="localePath('/c/men')" />
       </template>
-      <template #aside>
-        <LocaleSelector class="smartphone-only" />
-      </template>
       <template #header-icons>
         <div class="sf-header__icons">
           <SfButton
