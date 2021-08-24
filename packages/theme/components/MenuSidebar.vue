@@ -11,27 +11,16 @@
         class="sb-mega-menu"
         @close="toggleMenuSidebar">
         <SfMegaMenuColumn
-          v-for="(category, key) in categories"
+          v-for="(item, key) in menuItems"
           :key="key"
-          :title="category.title"
+          :title="item.label"
         >
+          <SfImage :alt="item.label" :src="item.image.src"/>
           <SfList>
-            <SfListItem v-for="(subcategory, key) in category.subcategories" :key="key">
-              <SfMenuItem :label="subcategory.title"></SfMenuItem>
+            <SfListItem v-for="(subitem, key) in item.children" :key="key">
+              <SfLink><SfMenuItem :label="subitem.label"></SfMenuItem></SfLink>
             </SfListItem>
           </SfList>
-        </SfMegaMenuColumn>
-        <SfMegaMenuColumn title="Featured" class="sf-mega-menu-column--pined-content-on-mobile sf-mega-menu-column--hide-header-on-mobile sb-mega-menu__featured">
-          <div class="sb-mega-menu__banners">
-            <SfBanner
-              v-for="(banner, key) in banners"
-              :key="key"
-              :title="banner.title"
-              :subtitle="banner.subtitle"
-              :image="banner.pictures"
-              class="sb-mega-menu__banner"
-            />
-          </div>
         </SfMegaMenuColumn>
       </SfMegaMenu>
       <template #content-bottom>
@@ -60,7 +49,8 @@ import {
   SfProperty,
   SfPrice,
   SfCollectedProduct,
-  SfImage
+  SfImage,
+  SfLink
 } from '@storefront-ui/vue';
 import { computed } from '@vue/composition-api';
 import { useCart, useUser, cartGetters, useBootstrap } from '@vue-storefront/prestashop';
@@ -80,7 +70,8 @@ export default {
     SfProperty,
     SfPrice,
     SfCollectedProduct,
-    SfImage
+    SfImage,
+    SfLink
   },
   setup() {
     const { toggleMenuSidebar, isMenuSidebarOpen, toggleCartSidebar } = useUiState();
@@ -111,65 +102,7 @@ export default {
       cartGetters,
       menuItems
     };
-  },
-  data() {
-    return {
-      categories: [
-        {
-          title: "Clothing",
-          subcategories: [
-            { title: "Skirts" },
-            { title: "Sweaters" },
-            { title: "Dresses" },
-            { title: "TShirts" },
-            { title: "Pants" },
-            { title: "Underwear" },
-            { title: "Jackets" },
-            { title: "Blouses" },
-          ],
-        },
-        {
-          title: "Accesories",
-          subcategories: [
-            { title: "Bags & Purses" },
-            { title: "Belts" },
-            { title: "Gloves" },
-            { title: "Hats" },
-          ],
-        },
-        {
-          title: "Shoes",
-          subcategories: [
-            { title: "Boots" },
-            { title: "Heels" },
-            { title: "Flat shoes" },
-            { title: "Loafers" },
-            { title: "Sandals" },
-            { title: "Slippers" },
-            { title: "Trainers" },
-          ],
-        },
-      ],
-      banners: [
-        {
-          title: "THE OFFICE LIFE",
-          subtitle: "T-shirts",
-          pictures: {
-            mobile: "/assets/storybook/SfMegaMenu/bannerSandals.jpg",
-            desktop: "/assets/storybook/SfMegaMenu/bannerSandals.jpg",
-          },
-        },
-        {
-          title: "ECO SANDALS",
-          subtitle: "T-shirts",
-          pictures: {
-            mobile: "/assets/storybook/SfMegaMenu/bannerBeachBag.jpg",
-            desktop: "/assets/storybook/SfMegaMenu/bannerBeachBag.jpg",
-          },
-        },
-      ],
-    };
-  },
+  }
 };
 </script>
 
@@ -195,5 +128,9 @@ export default {
 
 #menu .sf-sidebar__top{
   padding: 0px !important;
+}
+
+.sf-image.sf-image-loaded{
+  width: 100% !important;
 }
 </style>
