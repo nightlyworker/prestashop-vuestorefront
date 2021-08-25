@@ -18,7 +18,7 @@
           <SfImage :alt="item.label" :src="item.image.src"/>
           <SfList>
             <SfListItem v-for="(subitem, key) in item.children" :key="key">
-              <SfLink :link="localePath('/c/'+subitem.slug)"><SfMenuItem :label="subitem.label"></SfMenuItem></SfLink>
+              <SfMenuItem @click='handleItemClick(localePath("/c/"+subitem.slug))' :label="subitem.label"></SfMenuItem>
             </SfListItem>
           </SfList>
         </SfMegaMenuColumn>
@@ -73,7 +73,7 @@ export default {
     SfImage,
     SfLink
   },
-  setup() {
+  setup(props, { root }) {
     const { toggleMenuSidebar, isMenuSidebarOpen, toggleCartSidebar } = useUiState();
     const { cart, removeItem, updateItemQty, load: loadCart } = useCart();
     const { isAuthenticated } = useUser();
@@ -89,6 +89,11 @@ export default {
       await loadCart();
     });
 
+    const handleItemClick = (link) => {
+      toggleMenuSidebar();
+      return root.$router.push(link);
+    };
+
     return {
       isAuthenticated,
       products,
@@ -100,7 +105,8 @@ export default {
       totals,
       totalItems,
       cartGetters,
-      menuItems
+      menuItems,
+      handleItemClick
     };
   }
 };
