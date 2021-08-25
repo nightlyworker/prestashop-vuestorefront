@@ -61,7 +61,6 @@ import {
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import RelatedProducts from '~/components/RelatedProducts.vue';
 import LazyHydrate from 'vue-lazy-hydration';
-import { onSSR } from '@vue-storefront/core';
 import {
   computed
 } from '@vue/composition-api';
@@ -78,13 +77,8 @@ export default {
       featureProducts: featureProducts,
       slides: slides,
       banner: banner,
-      boot: boot,
       loading: bootLoading
     } = useBootstrap();
-
-    onSSR(async () => {
-      await boot();
-    });
 
     return {
       products: computed(() =>

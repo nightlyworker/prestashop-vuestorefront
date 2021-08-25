@@ -18,7 +18,7 @@
           <SfImage :alt="item.label" :src="item.image.src"/>
           <SfList>
             <SfListItem v-for="(subitem, key) in item.children" :key="key">
-              <SfLink><SfMenuItem :label="subitem.label"></SfMenuItem></SfLink>
+              <SfLink :link="localePath('/c/'+subitem.slug)"><SfMenuItem :label="subitem.label"></SfMenuItem></SfLink>
             </SfListItem>
           </SfList>
         </SfMegaMenuColumn>
