@@ -32,6 +32,7 @@ export const useBootstrap = () => {
   // todo: in factories it should return array of typed objects - not raw plain response
   return {
     boot,
+    menuItems: computed(() => result.value.psdata.menuItems),
     featureProducts: computed(() => result.value.psdata.featuredProductsList),
     slides: computed(() => result.value.psdata.slides),
     banner: computed(() => result.value.psdata.banner),

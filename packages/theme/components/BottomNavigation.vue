@@ -3,7 +3,7 @@
     <nuxt-link to="/">
       <SfBottomNavigationItem :class="$route.path == '/' ? 'sf-bottom-navigation__item--active' : ''" icon="home" size="20px" label="Home"/>
     </nuxt-link>
-    <SfBottomNavigationItem icon="menu" size="20px" label="Menu"/>
+    <SfBottomNavigationItem icon="menu" size="20px" label="Menu" @click="toggleMenuSidebar"/>
     <SfBottomNavigationItem
       label="Basket"
       icon="add_to_cart"
@@ -35,7 +35,7 @@ export default {
     SfCircleIcon
   },
   setup(props, { root }) {
-    const { toggleCartSidebar, toggleWishlistSidebar, toggleLoginModal } = useUiState();
+    const { toggleMenuSidebar, toggleCartSidebar, toggleWishlistSidebar, toggleLoginModal } = useUiState();
     const { isAuthenticated } = useUser();
 
     const handleAccountClick = async () => {
@@ -46,6 +46,7 @@ export default {
     };
 
     return {
+      toggleMenuSidebar,
       toggleWishlistSidebar,
       toggleCartSidebar,
       handleAccountClick

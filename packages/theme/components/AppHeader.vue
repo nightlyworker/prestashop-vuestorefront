@@ -4,18 +4,18 @@
       class="sf-header--has-mobile-search"
       :class="{'header-on-top': isSearchOpen}"
     >
-      <!-- TODO: add mobile view buttons after SFUI team PR -->
       <template #logo>
         <nuxt-link :to="localePath('/')" class="sf-header__logo">
           <SfImage src="/icons/logo.svg" alt="Vue Storefront Next" class="sf-header__logo-image"/>
         </nuxt-link>
       </template>
       <template #navigation>
-        <SfHeaderNavigationItem class="nav-item" v-e2e="'app-header-url_women'" label="WOMEN" :link="localePath('/c/women')"/>
-        <SfHeaderNavigationItem class="nav-item"  v-e2e="'app-header-url_men'" label="MEN" :link="localePath('/c/men')" />
-      </template>
-      <template #aside>
-        <LocaleSelector class="smartphone-only" />
+        <SfHeaderNavigationItem v-for="(item, key) in menuItems"
+                                :key="key"
+                                class="nav-item"
+                                v-e2e="'app-header-url_women'"
+                                :label="item.label"
+                                :link="localePath('/c/'+item.slug)"/>
       </template>
       <template #header-icons>
         <div class="sf-header__icons">
@@ -97,7 +97,7 @@
 <script>
 import { SfHeader, SfImage, SfIcon, SfButton, SfBadge, SfSearchBar, SfOverlay, SfMenuItem, SfLink } from '@storefront-ui/vue';
 import { useUiState } from '~/composables';
-import { useCart, useWishlist, useUser, cartGetters } from '@vue-storefront/prestashop';
+import { useCart, useWishlist, useUser, cartGetters, useBootstrap } from '@vue-storefront/prestashop';
 import { computed, ref, onBeforeUnmount, watch } from '@vue/composition-api';
 import { onSSR } from '@vue-storefront/core';
 import { useUiHelpers } from '~/composables';
@@ -126,6 +126,10 @@ export default {
   },
   directives: { clickOutside },
   setup(props, { root }) {
+    const {
+      menuItems: menuItems
+    } = useBootstrap();
+
     const { toggleCartSidebar, toggleWishlistSidebar, toggleLoginModal } = useUiState();
     const { setTermForUrl, getFacetsFromURL } = useUiHelpers();
     const { isAuthenticated, load: loadUser } = useUser();
@@ -216,7 +220,8 @@ export default {
       closeOrFocusSearchBar,
       searchBarRef,
       isMobile,
-      removeSearchResults
+      removeSearchResults,
+      menuItems
     };
   }
 };

@@ -13,6 +13,7 @@
       <LazyHydrate when-visible>
         <BottomNavigation />
       </LazyHydrate>
+      <MenuSidebar />
       <CartSidebar />
       <WishlistSidebar />
       <LoginModal />
@@ -29,21 +30,37 @@ import AppHeader from '~/components/AppHeader.vue';
 import BottomNavigation from '~/components/BottomNavigation.vue';
 import AppFooter from '~/components/AppFooter.vue';
 import TopBar from '~/components/TopBar.vue';
+import MenuSidebar from '~/components/MenuSidebar.vue';
 import CartSidebar from '~/components/CartSidebar.vue';
 import WishlistSidebar from '~/components/WishlistSidebar.vue';
 import LoginModal from '~/components/LoginModal.vue';
 import LazyHydrate from 'vue-lazy-hydration';
 import Notification from '~/components/Notification';
+import {
+  useBootstrap
+} from '@vue-storefront/prestashop';
+import { onSSR } from '@vue-storefront/core';
 
 export default {
   name: 'DefaultLayout',
 
+  setup() {
+    const {
+      boot: boot
+    } = useBootstrap();
+
+    onSSR(async () => {
+      await boot();
+    });
+
+  },
   components: {
     LazyHydrate,
     TopBar,
     AppHeader,
     BottomNavigation,
     AppFooter,
+    MenuSidebar,
     CartSidebar,
     WishlistSidebar,
     LoginModal,
