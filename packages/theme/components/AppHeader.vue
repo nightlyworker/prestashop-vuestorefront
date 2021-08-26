@@ -97,7 +97,15 @@
 <script>
 import { SfHeader, SfImage, SfIcon, SfButton, SfBadge, SfSearchBar, SfOverlay, SfMenuItem, SfLink } from '@storefront-ui/vue';
 import { useUiState } from '~/composables';
-import { useCart, useWishlist, useUser, cartGetters, useBootstrap } from '@vue-storefront/prestashop';
+import {
+  useCart,
+  useWishlist,
+  useUser,
+  cartGetters,
+  useBootstrap,
+  useFacet,
+  facetGetters
+} from '@vue-storefront/prestashop';
 import { computed, ref, onBeforeUnmount, watch } from '@vue/composition-api';
 import { onSSR } from '@vue-storefront/core';
 import { useUiHelpers } from '~/composables';
@@ -138,7 +146,9 @@ export default {
     const term = ref(getFacetsFromURL().phrase);
     const isSearchOpen = ref(false);
     const searchBarRef = ref(null);
-    const result = ref(null);
+
+    const { result: productResult, search: productSearch } = useFacet();
+    const result = computed(() => facetGetters.getProducts(productResult.value));
 
     const cartTotalItems = computed(() => {
       const count = cartGetters.getTotalItems(cart.value);
@@ -169,15 +179,19 @@ export default {
       isSearchOpen.value = false;
     };
 
-    const handleSearch = debounce(async (paramValue) => {
+    const handleSearch = computed(() => debounce(async (paramValue) => {
       if (!paramValue.target) {
         term.value = paramValue;
       } else {
         term.value = paramValue.target.value;
       }
-      result.value = [];
 
-    }, 1000);
+      await productSearch({
+        type: 'instant-search',
+        term: term.value
+      });
+
+    }, 500));
 
     const isMobile = computed(() => mapMobileObserver().isMobile.get());
 

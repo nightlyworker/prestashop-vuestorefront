@@ -6,9 +6,9 @@ const populateCategoryProducts = (psProducts: Array<any>) => {
     slug: product.link_rewrite,
     regularPrice: product.regular_price_amount,
     discountPrice: product.price_amount,
-    coverImageSmall: product.cover.url,
-    coverImageMedium: product.cover.url,
-    coverImageLarge: product.cover.url,
+    coverImageSmall: product.cover?.url,
+    coverImageMedium: product.cover?.url,
+    coverImageLarge: product.cover?.url,
     images: [],
     description: null
   }));

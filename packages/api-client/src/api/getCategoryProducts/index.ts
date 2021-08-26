@@ -1,11 +1,20 @@
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export async function getCategoryProducts(context, params) {
-  const url = new URL('/rest/categoryProducts', context.config.api.url);
+  if (params.input.type && params.input.type === 'instant-search') {
+    const url = new URL('/rest/productSearch', context.config.api.url);
 
-  url.searchParams.set('slug', params.input.categorySlug);
-  url.searchParams.set('with_all_images', '0');
+    url.searchParams.set('s', params.input.term);
 
-  const { data } = await context.client.get(url.href);
+    const { data } = await context.client.get(url.href);
+    console.log(data.psdata.products[0]);
+    return data;
+  } else {
+    const url = new URL('/rest/categoryProducts', context.config.api.url);
 
-  return data;
+    url.searchParams.set('slug', params.input.categorySlug);
+    url.searchParams.set('with_all_images', '0');
+
+    const { data } = await context.client.get(url.href);
+    return data;
+  }
 }
