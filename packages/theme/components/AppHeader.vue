@@ -191,7 +191,7 @@ export default {
         term: term.value
       });
 
-    }, 500));
+    }, 200));
 
     const isMobile = computed(() => mapMobileObserver().isMobile.get());
 
