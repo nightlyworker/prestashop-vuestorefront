@@ -29,28 +29,19 @@
               size="1.25rem"
             />
           </SfButton>
-          <SfButton
-            class="sf-button--pure sf-header__action"
-            @click="toggleWishlistSidebar"
-          >
-            <SfIcon
-              class="sf-header__icon"
-              icon="heart"
-              size="1.25rem"
-            />
-          </SfButton>
-          <SfButton
-            v-e2e="'app-header-cart'"
-            class="sf-button--pure sf-header__action"
-            @click="toggleCartSidebar"
-          >
-            <SfIcon
-              class="sf-header__icon"
-              icon="empty_cart"
-              size="1.25rem"
-            />
-            <SfBadge v-if="cartTotalItems" class="sf-badge--number cart-badge">{{cartTotalItems}}</SfBadge>
-          </SfButton>
+<!--          TODO: cart functionality - other variables have not been removed to be used in the future -->
+<!--          <SfButton-->
+<!--            v-e2e="'app-header-cart'"-->
+<!--            class="sf-button&#45;&#45;pure sf-header__action"-->
+<!--            @click="toggleCartSidebar"-->
+<!--          >-->
+<!--            <SfIcon-->
+<!--              class="sf-header__icon"-->
+<!--              icon="empty_cart"-->
+<!--              size="1.25rem"-->
+<!--            />-->
+<!--            <SfBadge v-if="cartTotalItems" class="sf-badge&#45;&#45;number cart-badge">{{cartTotalItems}}</SfBadge>-->
+<!--          </SfButton>-->
         </div>
       </template>
       <template #search>
@@ -99,7 +90,6 @@ import { SfHeader, SfImage, SfIcon, SfButton, SfBadge, SfSearchBar, SfOverlay, S
 import { useUiState } from '~/composables';
 import {
   useCart,
-  useWishlist,
   useUser,
   cartGetters,
   useBootstrap,
@@ -141,8 +131,8 @@ export default {
     const { toggleCartSidebar, toggleWishlistSidebar, toggleLoginModal } = useUiState();
     const { setTermForUrl, getFacetsFromURL } = useUiHelpers();
     const { isAuthenticated, load: loadUser } = useUser();
-    const { cart, load: loadCart } = useCart();
-    const { load: loadWishlist } = useWishlist();
+    // todo
+    // const { cart, load: loadCart } = useCart();
     const term = ref(getFacetsFromURL().phrase);
     const isSearchOpen = ref(false);
     const searchBarRef = ref(null);
@@ -167,9 +157,9 @@ export default {
     };
 
     onSSR(async () => {
-      await loadUser();
-      await loadCart();
-      await loadWishlist();
+      // todo
+      // await loadUser();
+      // await loadCart();
     });
 
     const closeSearch = () => {
