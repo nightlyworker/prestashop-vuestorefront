@@ -37,6 +37,10 @@ export type PsProduct = {
   coverImageLarge: string;
   images: AgnosticMediaGalleryItem[];
   description: any;
+  shortDescription: any;
+  brand: string;
+  category: string;
+  productInfo: any;
 }
 
 export type ProductFilter = TODO;

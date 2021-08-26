@@ -10,7 +10,11 @@ const populateCategoryProducts = (psProducts: Array<any>) => {
     coverImageMedium: product.cover?.url,
     coverImageLarge: product.cover?.url,
     images: [],
-    description: null
+    description: null,
+    shortDescription: null,
+    brand: null,
+    category: null,
+    productInfo: null
   }));
 
   return populateCategoryProducts;

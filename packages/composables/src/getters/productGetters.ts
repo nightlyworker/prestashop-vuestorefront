@@ -66,6 +66,26 @@ function getDescription(product: PsProduct): any {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getShortDescription(product: PsProduct): any {
+  return product?.shortDescription || '';
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getBrand(product: PsProduct): any {
+  return product?.brand || '';
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getCategory(product: PsProduct): any {
+  return product?.category || '';
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getProductInfo(product: PsProduct): any {
+  return product?.productInfo || '';
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getCategoryIds(product: PsProduct): string[] {
   return [];
 }
@@ -104,5 +124,9 @@ export const productGetters: ProductGetters<PsProduct, ProductFilter> = {
   getId,
   getFormattedPrice,
   getTotalReviews,
-  getAverageRating
+  getAverageRating,
+  getShortDescription,
+  getBrand,
+  getCategory,
+  getProductInfo
 };
