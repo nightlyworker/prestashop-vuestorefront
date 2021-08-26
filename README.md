@@ -2,6 +2,10 @@
 
 # Vue Storefront 2 eCommerce integration with PrestaShop
 
-<a href="https://discord.vuestorefront.io">![Our Discord server](https://img.shields.io/discord/770285988244750366?label=join%20discord&logo=Discord&logoColor=white)</a>
-
 This repository is a PrestaShop integration for Vue Storefront 2. Beta version.
+
+## <a href='https://www.binshops.com/prestashop-pwa'>Installation instructions</a>
+
+### PrestaShop REST API
+To have endpoint on your shop install this REST API module:
+https://github.com/binshops/prestashop-rest
