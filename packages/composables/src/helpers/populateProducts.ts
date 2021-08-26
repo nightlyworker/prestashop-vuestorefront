@@ -20,7 +20,11 @@ const populateProducts = (psProducts: Array<any>) => {
         big: image.src
       }
       )),
-    description: product.description
+    description: product.description,
+    shortDescription: product.description_short,
+    brand: product.manufacturer_name,
+    category: product.category_name,
+    productInfo: product.product_info
   }));
 
   return populateProducts;

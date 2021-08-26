@@ -37,7 +37,7 @@
           />
         </div>
         <div>
-          <p class="product__description desktop-only" v-html='productGetters.getDescription(product)'>
+          <p class="product__description desktop-only" v-html='productGetters.getShortDescription(product)'>
           </p>
           <SfSelect
             v-if="options.size"
@@ -79,11 +79,11 @@
         <LazyHydrate when-idle>
           <SfTabs :open-tab="1" class="product__tabs">
             <SfTab title="Description">
-              <div class="product__description">
-                  {{ $t('Product description') }}
-              </div>
+              <div class="product__description" v-html='productGetters.getDescription(product)'></div>
+              <SfProperty class='product__property' name='Category' :value='productGetters.getCategory(product)'></SfProperty>
+
               <SfProperty
-                v-for="(property, i) in properties"
+                v-for="(property, i) in productGetters.getProductInfo(product)"
                 :key="i"
                 :name="property.name"
                 :value="property.value"
@@ -95,6 +95,7 @@
                   </SfButton>
                 </template>
               </SfProperty>
+
             </SfTab>
             <SfTab
               title="Additional Information"
@@ -102,15 +103,7 @@
             >
             <div class="product__additional-info">
               <p class="product__additional-info__title">{{ $t('Brand') }}</p>
-              <p>{{ brand }}</p>
-              <p class="product__additional-info__title">{{ $t('Instruction1') }}</p>
-              <p class="product__additional-info__paragraph">
-                {{ $t('Instruction2') }}
-              </p>
-              <p class="product__additional-info__paragraph">
-                {{ $t('Instruction3') }}
-              </p>
-              <p>{{ careInstructions }}</p>
+              <p>{{ productGetters.getBrand(product) }}</p>
             </div>
             </SfTab>
           </SfTabs>
@@ -247,28 +240,6 @@ export default {
   },
   data() {
     return {
-      stock: 5,
-      properties: [
-        {
-          name: 'Product Code',
-          value: '578902-00'
-        },
-        {
-          name: 'Category',
-          value: 'Pants'
-        },
-        {
-          name: 'Material',
-          value: 'Cotton'
-        },
-        {
-          name: 'Country',
-          value: 'Germany'
-        }
-      ],
-      brand:
-          'Brand name is the perfect pairing of quality and design. This label creates major everyday vibes with its collection of modern brooches, silver and gold jewellery, or clips it back with hair accessories in geo styles.',
-      careInstructions: 'Do not wash!',
       breadcrumbs: [
         {
           text: 'Home',
