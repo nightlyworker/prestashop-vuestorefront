@@ -6,7 +6,6 @@ export async function getCategoryProducts(context, params) {
     url.searchParams.set('s', params.input.term);
 
     const { data } = await context.client.get(url.href);
-    console.log(data.psdata.products[0]);
     return data;
   } else {
     const url = new URL('/rest/categoryProducts', context.config.api.url);
