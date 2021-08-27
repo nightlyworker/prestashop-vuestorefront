@@ -9,3 +9,6 @@ This repository is a PrestaShop integration for Vue Storefront 2. Beta version.
 ### PrestaShop REST API
 To have endpoint on your shop install this REST API module:
 https://github.com/binshops/prestashop-rest
+
+### Online Demo
+Access the online demo: <a href="pwa.binshops.com">pwa.binshops.com</a>
