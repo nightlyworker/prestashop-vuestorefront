@@ -7,7 +7,7 @@
     <SfBottomNavigationItem
       label="Basket"
       icon="add_to_cart"
-      @click="toggleCartSidebar"
+      @click="toggleCartSidebarDemo"
     >
       <template #icon>
         <SfCircleIcon aria-label="Add to cart">
@@ -45,11 +45,17 @@ export default {
       toggleLoginModal();
     };
 
+    const toggleCartSidebarDemo = () => {
+      // eslint-disable-next-line no-alert
+      alert('Cart functionality will be added');
+    };
+
     return {
       toggleMenuSidebar,
       toggleWishlistSidebar,
       toggleCartSidebar,
-      handleAccountClick
+      handleAccountClick,
+      toggleCartSidebarDemo
     };
   }
 };
