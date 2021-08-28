@@ -11,4 +11,4 @@ To have endpoint on your shop install this REST API module:
 https://github.com/binshops/prestashop-rest
 
 ### Online Demo
-Access the online demo: <a href="pwa.binshops.com">pwa.binshops.com</a>
+Access the online demo: <a href="http://pwa.binshops.com">pwa.binshops.com</a>
